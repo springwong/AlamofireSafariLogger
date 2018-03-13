@@ -10,33 +10,20 @@ import UIKit
 import Alamofire
 import WebKit
 
-public enum NetworkActivityLoggerLevel {
-    /// Do not log requests or responses.
-    case off
-    
-    /// Logs HTTP method, URL, header fields, & request body for requests, and status code, URL, header fields, response string, & elapsed time for responses.
-    case debug
-}
-
 class AlamofireSafariLogger {
     var webview : WKWebView?
     
     // MARK: - Properties
     
     /// The shared network activity logger for the system.
-    public static let shared = SafariLogger()
-    
-    /// The level of logging detail. See NetworkActivityLoggerLevel enum for possible values. .info by default.
-    public var level: NetworkActivityLoggerLevel
+    public static let shared = AlamofireSafariLogger()
     
     /// Omit requests which match the specified predicate, if provided.
     public var filterPredicate: NSPredicate?
     
     // MARK: - Internal - Initialization
     
-    init(logLevel : NetworkActivityLoggerLevel = .off) {
-        level = logLevel
-        
+    init() {
         webview = WKWebView()
     }
     
@@ -54,14 +41,14 @@ class AlamofireSafariLogger {
         
         notificationCenter.addObserver(
             self,
-            selector: #selector(SafariLogger.networkRequestDidStart(notification:)),
+            selector: #selector(AlamofireSafariLogger.networkRequestDidStart(notification:)),
             name: Notification.Name.Task.DidResume,
             object: nil
         )
         
         notificationCenter.addObserver(
             self,
-            selector: #selector(SafariLogger.networkRequestDidComplete(notification:)),
+            selector: #selector(AlamofireSafariLogger.networkRequestDidComplete(notification:)),
             name: Notification.Name.Task.DidComplete,
             object: nil
         )
@@ -88,16 +75,11 @@ class AlamofireSafariLogger {
             return
         }
         
-        switch level {
-        case .debug:
-            logTime(string: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description)
-            logSafariHeader(string: request.allHTTPHeaderFields?.description)
-            
-            if let httpBody = request.httpBody, let httpBodyString = String(data: httpBody, encoding: .utf8) {
-                logSafariLog(requestURL.absoluteString, string: httpBodyString, title : "Request Body")
-            }
-        default:
-            break
+        logTime(string: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description)
+        logSafariHeader(string: request.allHTTPHeaderFields?.description)
+        
+        if let httpBody = request.httpBody, let httpBodyString = String(data: httpBody, encoding: .utf8) {
+            logSafariLog(requestURL.absoluteString, string: httpBodyString, title : "Request Body")
         }
     }
     
@@ -118,36 +100,27 @@ class AlamofireSafariLogger {
         logTime(string: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Response!!!")
         
         if let error = task.error {
-            switch level {
-            case .debug:
-                logSafariError(requestURL.absoluteString, string: error.localizedDescription, title: "Response Error")
-            default:
-                break
-            }
+            logSafariError(requestURL.absoluteString, string: error.localizedDescription, title: "Response Error")
         } else {
             guard let response = task.response as? HTTPURLResponse else {
                 return
             }
             
-            switch level {
-            case .debug:
-                var headers : [String : String] = [:]
-                response.allHeaderFields.forEach({ (key, value) in
-                    headers[key as! String] = value as? String
-                })
-                logSafariHeader(string: headers.description)
-                
-                guard let data = sessionDelegate[task]?.delegate.data else { break }
+            var headers : [String : String] = [:]
+            response.allHeaderFields.forEach({ (key, value) in
+                headers[key as! String] = value as? String
+            })
+            logSafariHeader(string: headers.description)
+            
+            if let data = sessionDelegate[task]?.delegate.data {
                 if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                     logSafariLog(requestURL.absoluteString, string: string as String, title: "Response")
                 }
-            default:
-                break
             }
         }
     }
 }
-private extension SafariLogger {
+private extension AlamofireSafariLogger {
     func logTime(string : String?) {
         if let string = string {
             let date = Date()
