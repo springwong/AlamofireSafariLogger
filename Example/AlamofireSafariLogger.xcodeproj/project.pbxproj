@@ -42,11 +42,11 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6B4AC6E5673AA3C4EDAB000C /* Pods-AlamofireSafariLogger_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlamofireSafariLogger_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlamofireSafariLogger_Example/Pods-AlamofireSafariLogger_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		7F1E518D86AB4E25D3DCDDEC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		7F1E518D86AB4E25D3DCDDEC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		931C0765BAB265F327C62AFB /* Pods_AlamofireSafariLogger_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlamofireSafariLogger_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C8AA6FA24630C74C35FE5E4 /* Pods_AlamofireSafariLogger_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlamofireSafariLogger_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9225E2A50459477650BC5F0 /* AlamofireSafariLogger.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = AlamofireSafariLogger.podspec; path = ../AlamofireSafariLogger.podspec; sourceTree = "<group>"; };
-		D19D4BCF520180284C161FA7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		A9225E2A50459477650BC5F0 /* AlamofireSafariLogger.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AlamofireSafariLogger.podspec; path = ../AlamofireSafariLogger.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D19D4BCF520180284C161FA7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,10 +286,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AlamofireSafariLogger_Example/Pods-AlamofireSafariLogger_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireSafariLogger/AlamofireSafariLogger.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireSafariLogger.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

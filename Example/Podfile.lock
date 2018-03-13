@@ -1,0 +1,19 @@
+PODS:
+  - Alamofire (4.7.0)
+  - AlamofireSafariLogger (0.1.0):
+    - Alamofire (~> 4.5)
+
+DEPENDENCIES:
+  - AlamofireSafariLogger (from `../`)
+
+EXTERNAL SOURCES:
+  AlamofireSafariLogger:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
+  AlamofireSafariLogger: b3e840f3676a722cf8b5bd17f3eb8f56b7150dcd
+
+PODFILE CHECKSUM: 8357feda5b9662622f322de6ec16343b1ab9054a
+
+COCOAPODS: 1.4.0
