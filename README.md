@@ -38,7 +38,7 @@ AlamofireSafariLogger.shared.startLogging()
 # Open Safari , enable developer menu.
 # Open web inspector in developer menu when your app is running.
 
-https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png
+(https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png)
 
 ## Installation
 
