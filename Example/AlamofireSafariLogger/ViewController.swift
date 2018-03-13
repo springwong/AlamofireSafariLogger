@@ -7,9 +7,15 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
+    @IBAction func callGithubAPI(_ sender: Any) {
+        Alamofire.request("https://httpbin.org/get")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

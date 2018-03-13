@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import WebKit
 
-class AlamofireSafariLogger {
+public class AlamofireSafariLogger {
     var webview : WKWebView?
     
     // MARK: - Properties
