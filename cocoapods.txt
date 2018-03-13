@@ -1,0 +1,5 @@
+cocoapods command:
+pod lib lint --allow-warnings
+pod spec lint --allow-warnings
+pod trunk register your_mail 'your name' --description='my mac'
+pod trunk push AlamofireSafariLogger.podspec --allow-warnings

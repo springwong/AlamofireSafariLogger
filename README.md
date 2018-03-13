@@ -11,6 +11,35 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+- iOS 8.0+ / macOS 10.11+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 8.0+
+- Swift 3.2+
+
+## Usage
+This project is inspired by AlamofireNetworkActivityLogger and facebook Stetho library.
+Reference:
+https://github.com/konkab/AlamofireNetworkActivityLogger
+https://github.com/facebook/stetho
+
+The aim of this project is to log the Alamofire request and response to the Safari Web Inspector.
+
+Import the library:
+
+```swift
+import AlamofireSafariLogger
+```
+
+Add the following code to `AppDelegate.swift application:didFinishLaunchingWithOptions:`:
+
+```swift
+AlamofireSafariLogger.shared.startLogging()
+```
+
+# Open Safari , enable developer menu.
+# Open web inspector in developer menu when your app is running.
+
+https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png
+
 ## Installation
 
 AlamofireSafariLogger is available through [CocoaPods](http://cocoapods.org). To install
