@@ -75,12 +75,17 @@ public class AlamofireSafariLogger {
             return
         }
         
-        logTime(string: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description)
+        logConsoleGroup(group: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Request task:" + String(task.taskIdentifier))
+        logTime(label: String(task.taskIdentifier))
+        
+//        logTime(string: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description)
         logSafariHeader(string: request.allHTTPHeaderFields?.description)
         
         if let httpBody = request.httpBody, let httpBodyString = String(data: httpBody, encoding: .utf8) {
             logSafariLog(requestURL.absoluteString, string: httpBodyString, title : "Request Body")
         }
+        
+        logConsoleGroupEnd()
     }
     
     @objc private func networkRequestDidComplete(notification: Notification) {
@@ -97,7 +102,8 @@ public class AlamofireSafariLogger {
         if let filterPredicate = filterPredicate, filterPredicate.evaluate(with: request) {
             return
         }
-        logTime(string: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Response!!!")
+        logConsoleGroup(group: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Response task:" + String(task.taskIdentifier))
+        logTimeEnd(label: String(task.taskIdentifier))
         
         if let error = task.error {
             logSafariError(requestURL.absoluteString, string: error.localizedDescription, title: "Response Error")
@@ -118,6 +124,7 @@ public class AlamofireSafariLogger {
                 }
             }
         }
+        logConsoleGroupEnd()
     }
 }
 private extension AlamofireSafariLogger {
@@ -157,6 +164,26 @@ private extension AlamofireSafariLogger {
             }
         }
         
+    }
+    func logConsoleGroup(group : String) {
+        DispatchQueue.main.async() {
+            self.webview?.evaluateJavaScript("console.group('" + group + "')", completionHandler: nil)
+        }
+    }
+    func logConsoleGroupEnd() {
+        DispatchQueue.main.async() {
+            self.webview?.evaluateJavaScript("console.groupEnd(" + ")", completionHandler: nil)
+        }
+    }
+    func logTime(label:String) {
+        DispatchQueue.main.async() {
+            self.webview?.evaluateJavaScript("console.time('" + label + "')", completionHandler: nil)
+        }
+    }
+    func logTimeEnd(label:String) {
+        DispatchQueue.main.async() {
+            self.webview?.evaluateJavaScript("console.timeEnd('" + label + "')", completionHandler: nil)
+        }
     }
 }
 
