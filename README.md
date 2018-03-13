@@ -21,7 +21,11 @@ Reference:
 https://github.com/konkab/AlamofireNetworkActivityLogger
 https://github.com/facebook/stetho
 
-The aim of this project is to log the Alamofire request and response to the Safari Web Inspector.
+The aim of this project is to log the Alamofire request and response to the Safari Web Inspector. By console log method in javascript, header and body is logged in console tab.
+
+Console Log : Header
+Console Warn: Body
+Console Error:Error
 
 Import the library:
 
