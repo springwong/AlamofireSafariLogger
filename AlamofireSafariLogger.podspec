@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC
 A logging library under Alamofire library. Allow user to view logging information in Safari Web Inspector.
+Please reference to https://github.com/springwong/AlamofireSafariLogger
                        DESC
 
   s.homepage         = 'https://github.com/springwong/AlamofireSafariLogger'
