@@ -35,10 +35,10 @@ Add the following code to `AppDelegate.swift application:didFinishLaunchingWithO
 AlamofireSafariLogger.shared.startLogging()
 ```
 
-# Open Safari , enable developer menu.
-# Open web inspector in developer menu when your app is running.
+### Open Safari , enable developer menu.
+### Open web inspector in developer menu when your app is running.
 
-(https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png)
+![Example Image](https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png)
 
 ## Installation
 
