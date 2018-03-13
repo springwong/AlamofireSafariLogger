@@ -11,8 +11,9 @@ import Alamofire
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var tfInput: UITextField!
     @IBAction func callGithubAPI(_ sender: Any) {
-        Alamofire.request("https://httpbin.org/get")
+        Alamofire.request(tfInput.text!)
     }
     
     
