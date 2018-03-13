@@ -22,7 +22,7 @@ pod 'AlamofireSafariLogger'
 
 ## Author
 
-rudolphwong2002@gmail.com, rudolphwong2002@gmail.com
+rudolphwong2002@gmail.com
 
 ## License
 
