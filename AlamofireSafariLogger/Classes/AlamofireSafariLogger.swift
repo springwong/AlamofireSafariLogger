@@ -21,6 +21,8 @@ public class AlamofireSafariLogger {
     /// Omit requests which match the specified predicate, if provided.
     public var filterPredicate: NSPredicate?
     
+    public var isGroupCollapse : Bool = true
+    
     // MARK: - Internal - Initialization
     
     init() {
@@ -75,14 +77,19 @@ public class AlamofireSafariLogger {
             return
         }
         
-        logConsoleGroup(group: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Request task:" + String(task.taskIdentifier))
+        let group = (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Request task:" + String(task.taskIdentifier)
+        
+        if(isGroupCollapse) {
+            logConsoleGroupCollapse(group: group)
+        } else {
+            logConsoleGroup(group: group)
+        }
         logTime(label: String(task.taskIdentifier))
         
-//        logTime(string: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description)
         logSafariHeader(string: request.allHTTPHeaderFields?.description)
         
         if let httpBody = request.httpBody, let httpBodyString = String(data: httpBody, encoding: .utf8) {
-            logSafariLog(requestURL.absoluteString, string: httpBodyString, title : "Request Body")
+            logSafariBody(requestURL.absoluteString, string: httpBodyString, title : "Request Body")
         }
         
         logConsoleGroupEnd()
@@ -102,7 +109,13 @@ public class AlamofireSafariLogger {
         if let filterPredicate = filterPredicate, filterPredicate.evaluate(with: request) {
             return
         }
-        logConsoleGroup(group: (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Response task:" + String(task.taskIdentifier))
+        
+        let group = (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Response task:" + String(task.taskIdentifier)
+        if isGroupCollapse {
+            logConsoleGroupCollapse(group: group)
+        }else {
+             logConsoleGroup(group: group)
+        }
         logTimeEnd(label: String(task.taskIdentifier))
         
         if let error = task.error {
@@ -120,7 +133,7 @@ public class AlamofireSafariLogger {
             
             if let data = sessionDelegate[task]?.delegate.data {
                 if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                    logSafariLog(requestURL.absoluteString, string: string as String, title: "Response")
+                    logSafariBody(requestURL.absoluteString, string: string as String, title: "Response")
                 }
             }
         }
@@ -128,18 +141,6 @@ public class AlamofireSafariLogger {
     }
 }
 private extension AlamofireSafariLogger {
-    func logTime(string : String?) {
-        if let string = string {
-            let date = Date()
-            let formatter = DateFormatter()
-            
-            formatter.dateFormat = "dd.MM.yyyy hh:mm:ss.SSS"
-            let time = formatter.string(from: date)
-            DispatchQueue.main.async() {
-                self.webview?.evaluateJavaScript("console.log('" + time + " : " + string + "')", completionHandler: nil)
-            }
-        }
-    }
     func logSafariHeader(string : String?) {
         if let string = string {
             DispatchQueue.main.async() {
@@ -148,7 +149,7 @@ private extension AlamofireSafariLogger {
         }
     }
     
-    func logSafariLog (_ url : String , string : String?, title : String = "") {
+    func logSafariBody (_ url : String , string : String?, title : String = "") {
         if let string = string?.replacingOccurrences(of: "\n", with: "") {
             DispatchQueue.main.async() {
                 self.webview?.evaluateJavaScript("console.warn('" + string.replacingOccurrences(of: "'", with: "\\'") + "')", completionHandler: nil)
@@ -168,6 +169,11 @@ private extension AlamofireSafariLogger {
     func logConsoleGroup(group : String) {
         DispatchQueue.main.async() {
             self.webview?.evaluateJavaScript("console.group('" + group + "')", completionHandler: nil)
+        }
+    }
+    func logConsoleGroupCollapse(group : String) {
+        DispatchQueue.main.async() {
+            self.webview?.evaluateJavaScript("console.groupCollapsed('" + group + "')", completionHandler: nil)
         }
     }
     func logConsoleGroupEnd() {
