@@ -21,10 +21,9 @@ public class AlamofireSafariLogger {
     /// Omit requests which match the specified predicate, if provided.
     public var filterPredicate: NSPredicate?
     
-    public var isGroupCollapse : Bool = true
+    public var isGroupCollapse : Bool = false
     
     // MARK: - Internal - Initialization
-    
     init() {
         webview = WKWebView()
     }
@@ -89,7 +88,7 @@ public class AlamofireSafariLogger {
         logSafariHeader(string: request.allHTTPHeaderFields?.description)
         
         if let httpBody = request.httpBody, let httpBodyString = String(data: httpBody, encoding: .utf8) {
-            logSafariBody(requestURL.absoluteString, string: httpBodyString, title : "Request Body")
+            logSafariBody(string: httpBodyString)
         }
         
         logConsoleGroupEnd()
@@ -119,7 +118,7 @@ public class AlamofireSafariLogger {
         logTimeEnd(label: String(task.taskIdentifier))
         
         if let error = task.error {
-            logSafariError(requestURL.absoluteString, string: error.localizedDescription, title: "Response Error")
+            logSafariError(string: error.localizedDescription)
         } else {
             guard let response = task.response as? HTTPURLResponse else {
                 return
@@ -133,7 +132,7 @@ public class AlamofireSafariLogger {
             
             if let data = sessionDelegate[task]?.delegate.data {
                 if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                    logSafariBody(requestURL.absoluteString, string: string as String, title: "Response")
+                    logSafariBody(string: string as String)
                 }
             }
         }
@@ -149,7 +148,7 @@ private extension AlamofireSafariLogger {
         }
     }
     
-    func logSafariBody (_ url : String , string : String?, title : String = "") {
+    func logSafariBody (string : String?) {
         if let string = string?.replacingOccurrences(of: "\n", with: "") {
             DispatchQueue.main.async() {
                 self.webview?.evaluateJavaScript("console.warn('" + string.replacingOccurrences(of: "'", with: "\\'") + "')", completionHandler: nil)
@@ -158,7 +157,7 @@ private extension AlamofireSafariLogger {
         
     }
     
-    func logSafariError (_ url : String , string : String?, title : String = "") {
+    func logSafariError (string : String?) {
         if let string = string?.replacingOccurrences(of: "\n", with: "") {
             DispatchQueue.main.async() {
                 self.webview?.evaluateJavaScript("console.error('" + string + "')", completionHandler: nil)
