@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AlamofireSafariLogger_Example' do
+  pod 'AlamofireSafariLogger', :path => '../'
+
+  target 'AlamofireSafariLogger_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
