@@ -67,7 +67,7 @@ public class AlamofireSafariLogger {
             let task = userInfo[Notification.Key.Task] as? URLSessionTask,
             let request = task.originalRequest,
             let httpMethod = request.httpMethod,
-            let requestURL = request.url
+            let _ = request.url
             else {
                 return
         }
@@ -100,7 +100,7 @@ public class AlamofireSafariLogger {
             let task = userInfo[Notification.Key.Task] as? URLSessionTask,
             let request = task.originalRequest,
             let httpMethod = request.httpMethod,
-            let requestURL = request.url
+            let _ = request.url
             else {
                 return
         }
