@@ -17,7 +17,24 @@ class ViewController: UIViewController {
         Alamofire.request(tfInput.text!)
     }
     
+    @IBAction func postAPI(_ sender: Any) {
+        let parameters: Parameters = ["foo": "bar"]
+        Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+    }
     
+    @IBAction func multipartAPI(_ sender: Any) {
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append("Hello World".data(using: .utf8)!, withName: "Multipart")
+        },
+            to: "https://httpbin.org/post",
+            encodingCompletion: nil
+        )
+    }
+    @IBAction func postJsonAPI(_ sender: Any) {
+        let parameters: Parameters = ["foo": "bar"]
+        Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: URLEncoding.default)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
