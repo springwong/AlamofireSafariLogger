@@ -21,7 +21,7 @@ public class AlamofireSafariLogger {
     /// Omit requests which match the specified predicate, if provided.
     public var filterPredicate: NSPredicate?
     
-    public var isGroupCollapse : Bool = false
+    public var isGroupCollapse : Bool = true
     public var isLogRequestHeader : Bool = true
     public var isLogRequestBody : Bool = true
     public var isLogResponseHeader : Bool = true
