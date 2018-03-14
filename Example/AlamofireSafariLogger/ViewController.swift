@@ -19,9 +19,16 @@ class ViewController: UIViewController {
     
     @IBAction func postAPI(_ sender: Any) {
         let parameters: Parameters = ["foo": "bar"]
-        Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: URLEncoding.default)
     }
     
+    @IBAction func getUrlEncoded(_ sender: Any) {
+        let parameters: Parameters = ["foo": "bar"]
+        
+        // All three of these calls are equivalent
+        Alamofire.request("https://httpbin.org/get", parameters: parameters, encoding: URLEncoding.default)
+
+    }
     @IBAction func multipartAPI(_ sender: Any) {
         Alamofire.upload(
             multipartFormData: { multipartFormData in
@@ -33,7 +40,7 @@ class ViewController: UIViewController {
     }
     @IBAction func postJsonAPI(_ sender: Any) {
         let parameters: Parameters = ["foo": "bar"]
-        Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: URLEncoding.default)
+        Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: JSONEncoding.default)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
