@@ -91,7 +91,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="HIp-On-zWZ"/>
                                         </constraints>
-                                        <state key="normal" title="Multipart API"/>
+                                        <state key="normal" title="Multipart API (no request body logged)"/>
                                         <connections>
                                             <action selector="multipartAPI:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yJZ-OU-ILJ"/>
                                         </connections>
