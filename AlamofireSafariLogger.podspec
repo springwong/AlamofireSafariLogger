@@ -30,7 +30,7 @@ Please reference to https://github.com/springwong/AlamofireSafariLogger
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   #s.ios.deployment_target = '8.0'
-  s.platforms = { :ios => "8.0", :osx => "10.10", :watchos => "2.0", :tvos => "9.0" }
+  s.platforms = { :ios => "8.0" }
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.2' }
 
   s.source_files = 'AlamofireSafariLogger/Classes/**/*'

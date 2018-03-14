@@ -6,7 +6,7 @@
 //  Copyright © 2018 Spring Wong. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Alamofire
 import WebKit
 
