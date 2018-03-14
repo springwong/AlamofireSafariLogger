@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AlamofireSafariLogger'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'A logging library under Alamofire library. Allow user to view logging information in Safari Web Inspector.'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,9 @@ Please reference to https://github.com/springwong/AlamofireSafariLogger
   s.source           = { :git => 'https://github.com/springwong/AlamofireSafariLogger.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  #s.ios.deployment_target = '8.0'
+  s.platforms = { :ios => "8.0", :osx => "10.10", :watchos => "2.0", :tvos => "9.0" }
+
 
   s.source_files = 'AlamofireSafariLogger/Classes/**/*'
   
