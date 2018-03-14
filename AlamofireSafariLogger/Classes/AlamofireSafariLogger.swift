@@ -22,6 +22,13 @@ public class AlamofireSafariLogger {
     public var filterPredicate: NSPredicate?
     
     public var isGroupCollapse : Bool = false
+    public var isLogRequestHeader : Bool = true
+    public var isLogRequestBody : Bool = true
+    public var isLogResponseHeader : Bool = true
+    public var isLogResponseBody : Bool = true
+    public var isLogError : Bool = true
+    
+    public var isDisableLog : Bool = false
     
     // MARK: - Internal - Initialization
     init() {
@@ -75,6 +82,9 @@ public class AlamofireSafariLogger {
         if let filterPredicate = filterPredicate, filterPredicate.evaluate(with: request) {
             return
         }
+        if isDisableLog {
+            return
+        }
         
         let group = (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Request task:" + String(task.taskIdentifier)
         
@@ -84,11 +94,14 @@ public class AlamofireSafariLogger {
             logConsoleGroup(group: group)
         }
         logTime(label: String(task.taskIdentifier))
+        if isLogRequestHeader {
+            logSafariHeader(string: request.allHTTPHeaderFields?.description)
+        }
         
-        logSafariHeader(string: request.allHTTPHeaderFields?.description)
-        
-        if let httpBody = request.httpBody, let httpBodyString = String(data: httpBody, encoding: .utf8) {
-            logSafariBody(string: httpBodyString)
+        if isLogRequestBody {
+            if let httpBody = request.httpBody, let httpBodyString = String(data: httpBody, encoding: .utf8) {
+                logSafariBody(string: httpBodyString)
+            }
         }
         
         logConsoleGroupEnd()
@@ -109,6 +122,10 @@ public class AlamofireSafariLogger {
             return
         }
         
+        if isDisableLog {
+            return
+        }
+        
         let group = (request.urlRequest?.url?.absoluteString)! + " " + httpMethod.description + " Response task:" + String(task.taskIdentifier)
         if isGroupCollapse {
             logConsoleGroupCollapse(group: group)
@@ -118,21 +135,27 @@ public class AlamofireSafariLogger {
         logTimeEnd(label: String(task.taskIdentifier))
         
         if let error = task.error {
-            logSafariError(string: error.localizedDescription)
+            if isLogError {
+                 logSafariError(string: error.localizedDescription)
+            }
         } else {
             guard let response = task.response as? HTTPURLResponse else {
                 return
             }
             
-            var headers : [String : String] = [:]
-            response.allHeaderFields.forEach({ (key, value) in
-                headers[key as! String] = value as? String
-            })
-            logSafariHeader(string: headers.description)
+            if isLogResponseHeader {
+                var headers : [String : String] = [:]
+                response.allHeaderFields.forEach({ (key, value) in
+                    headers[key as! String] = value as? String
+                })
+                logSafariHeader(string: headers.description)
+            }
             
-            if let data = sessionDelegate[task]?.delegate.data {
-                if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                    logSafariBody(string: string as String)
+            if isLogResponseBody {
+                if let data = sessionDelegate[task]?.delegate.data {
+                    if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                        logSafariBody(string: string as String)
+                    }
                 }
             }
         }
