@@ -73,8 +73,7 @@ public class AlamofireSafariLogger {
         guard let userInfo = notification.userInfo,
             let task = userInfo[Notification.Key.Task] as? URLSessionTask,
             let request = task.originalRequest,
-            let httpMethod = request.httpMethod,
-            let _ = request.url
+            let httpMethod = request.httpMethod
             else {
                 return
         }
@@ -108,12 +107,10 @@ public class AlamofireSafariLogger {
     }
     
     @objc private func networkRequestDidComplete(notification: Notification) {
-        guard let sessionDelegate = notification.object as? SessionDelegate,
-            let userInfo = notification.userInfo,
+        guard  let userInfo = notification.userInfo,
             let task = userInfo[Notification.Key.Task] as? URLSessionTask,
             let request = task.originalRequest,
-            let httpMethod = request.httpMethod,
-            let _ = request.url
+            let httpMethod = request.httpMethod
             else {
                 return
         }
@@ -152,10 +149,8 @@ public class AlamofireSafariLogger {
             }
             
             if isLogResponseBody {
-                if let data = sessionDelegate[task]?.delegate.data {
-                    if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        logSafariBody(string: string as String)
-                    }
+                if let responseData = userInfo[Notification.Key.ResponseData] as? Data {
+                    logSafariBody(string: String(data: responseData, encoding: .utf8))
                 }
             }
         }
@@ -172,9 +167,10 @@ private extension AlamofireSafariLogger {
     }
     
     func logSafariBody (string : String?) {
-        if let string = string?.replacingOccurrences(of: "\n", with: "") {
+        if let string = string?.replacingOccurrences(of: "\n", with: "\\n") {
+            let result = string.replacingOccurrences(of: "'", with: "\\'")
             DispatchQueue.main.async() {
-                self.webview?.evaluateJavaScript("console.warn('" + string.replacingOccurrences(of: "'", with: "\\'") + "')", completionHandler: nil)
+                self.webview?.evaluateJavaScript("console.warn('" + result + "')", completionHandler: nil)
             }
         }
         
