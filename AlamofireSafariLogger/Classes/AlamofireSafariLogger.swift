@@ -107,7 +107,8 @@ public class AlamofireSafariLogger {
     }
     
     @objc private func networkRequestDidComplete(notification: Notification) {
-        guard  let userInfo = notification.userInfo,
+        guard let sessionDelegate = notification.object as? SessionDelegate,
+            let userInfo = notification.userInfo,
             let task = userInfo[Notification.Key.Task] as? URLSessionTask,
             let request = task.originalRequest,
             let httpMethod = request.httpMethod
@@ -149,8 +150,10 @@ public class AlamofireSafariLogger {
             }
             
             if isLogResponseBody {
-                if let responseData = userInfo[Notification.Key.ResponseData] as? Data {
-                    logSafariBody(string: String(data: responseData, encoding: .utf8))
+                if let data = sessionDelegate[task]?.delegate.data {
+                    if let string = String(data: data, encoding: .utf8) {
+                        logSafariBody(string: string as String)
+                    }
                 }
             }
         }
