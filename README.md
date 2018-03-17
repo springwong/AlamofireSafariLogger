@@ -48,7 +48,7 @@ AlamofireSafariLogger.shared.startLogging()
 
 ## Features
 ```swift
-	public var isGroupCollapse : Bool = true
+public var isGroupCollapse : Bool = true
     public var isLogRequestHeader : Bool = true
     public var isLogRequestBody : Bool = true
     public var isLogResponseHeader : Bool = true
