@@ -1,4 +1,4 @@
-# AlamofireSafariLogger
+# AlamofireSafariLogger - a lightweight Alamofire call debugger
 
 [![CI Status](http://img.shields.io/travis/rudolphwong2002@gmail.com/AlamofireSafariLogger.svg?style=flat)](https://travis-ci.org/rudolphwong2002@gmail.com/AlamofireSafariLogger)
 [![Version](https://img.shields.io/cocoapods/v/AlamofireSafariLogger.svg?style=flat)](http://cocoapods.org/pods/AlamofireSafariLogger)
@@ -45,6 +45,16 @@ AlamofireSafariLogger.shared.startLogging()
 ![Example Image](https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png)
 
 #!!!Remember to prevent library's execution in your production app#
+
+## Features
+isGroupCollapse - collapse log group in default
+### Option for logging content:
+isLogRequestHeader
+isLogRequestBody
+isLogResponseHeader 
+isLogResponseBody
+isLogError
+isDisableLog - Disable all logging
 
 ## Installation
 
