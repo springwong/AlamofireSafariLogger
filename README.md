@@ -56,7 +56,9 @@ AlamofireSafariLogger.shared.startLogging()
     public var isLogError : Bool = true
     
     public var isDisableLog : Bool = false
+
 ```
+Not Support multipart/form-data request body
 
 ## Installation
 
