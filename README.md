@@ -47,14 +47,16 @@ AlamofireSafariLogger.shared.startLogging()
 #!!!Remember to prevent library's execution in your production app#
 
 ## Features
-isGroupCollapse - collapse log group in default
-### Option for logging content:
-isLogRequestHeader
-isLogRequestBody
-isLogResponseHeader 
-isLogResponseBody
-isLogError
-isDisableLog - Disable all logging
+```swift
+	public var isGroupCollapse : Bool = true
+    public var isLogRequestHeader : Bool = true
+    public var isLogRequestBody : Bool = true
+    public var isLogResponseHeader : Bool = true
+    public var isLogResponseBody : Bool = true
+    public var isLogError : Bool = true
+    
+    public var isDisableLog : Bool = false
+```
 
 ## Installation
 
