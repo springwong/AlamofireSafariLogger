@@ -41,12 +41,13 @@ AlamofireSafariLogger.shared.startLogging()
 
 ### Open Safari , enable developer menu.
 ![Open Debugger](https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/open_debugger.png)
+* To log iOS Device, in your device , Setting > Safari > Advanced > enable "Web Inspector"
 
 ### Open web inspector in developer menu when your app is running.
 
 ![Example Image](https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png)
 
-#!!!Remember to prevent library's execution in your production app#
+#!!!Remember to prevent library's execution in your production app
 
 ## Features
 ```swift
