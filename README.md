@@ -52,6 +52,7 @@ AlamofireSafariLogger.shared.startLogging()
 ```ruby
 #if DEBUG
 AlamofireSafariLogger.shared.startLogging()
+#endif
 ```
 
 ## Features
