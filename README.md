@@ -40,6 +40,8 @@ AlamofireSafariLogger.shared.startLogging()
 ```
 
 ### Open Safari , enable developer menu.
+![Open Debugger](https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/open_debugger.png)
+
 ### Open web inspector in developer menu when your app is running.
 
 ![Example Image](https://raw.githubusercontent.com/springwong/AlamofireSafariLogger/master/example.png)
