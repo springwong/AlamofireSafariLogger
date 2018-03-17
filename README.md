@@ -49,13 +49,13 @@ AlamofireSafariLogger.shared.startLogging()
 ## Features
 ```swift
 public var isGroupCollapse : Bool = true
-    public var isLogRequestHeader : Bool = true
-    public var isLogRequestBody : Bool = true
-    public var isLogResponseHeader : Bool = true
-    public var isLogResponseBody : Bool = true
-    public var isLogError : Bool = true
+public var isLogRequestHeader : Bool = true
+public var isLogRequestBody : Bool = true
+public var isLogResponseHeader : Bool = true
+public var isLogResponseBody : Bool = true
+public var isLogError : Bool = true
     
-    public var isDisableLog : Bool = false
+public var isDisableLog : Bool = false
 
 ```
 Not Support multipart/form-data request body
